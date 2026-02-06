@@ -24,7 +24,7 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
       const timer = setTimeout(() => {
         setQuoteOpen(true);
         sessionStorage.setItem("hasSeenGetStartedModal", "true");
-      }, 1500); // Delay of 1.5 seconds for better UX
+      }, 800); // Quick 0.8s delay
       return () => clearTimeout(timer);
     }
   }, []);
