@@ -2,9 +2,9 @@ import { z } from "zod";
 
 export const quoteSchema = z.object({
   type: z.literal("quote"),
-  name: z.string().min(2, "Please enter your name"),
+  name: z.string().min(1, "Please enter your name"),
   email: z.string().email("Enter a valid email"),
-  phone_number: z.string().min(7, "Enter a valid phone number"),
+  phone_number: z.string().optional(),
   genre: z.string().optional(),
   service_interest: z.string().optional(),
   budget_range: z.string().optional(),
