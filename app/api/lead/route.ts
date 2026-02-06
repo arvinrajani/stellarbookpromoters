@@ -10,9 +10,9 @@ async function insertLead(data: Record<string, unknown>) {
     return { ok: false, error: "Supabase credentials missing" };
   }
 
-  // Remove undefined values to prevent Supabase issues
+  // Clean empty strings to null for Supabase
   const cleanData = Object.fromEntries(
-    Object.entries(data).filter(([_, v]) => v !== undefined)
+    Object.entries(data).map(([k, v]) => [k, v === "" ? null : v])
   );
 
   const response = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
@@ -23,7 +23,7 @@ async function insertLead(data: Record<string, unknown>) {
       Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
       Prefer: "return=minimal"
     },
-    body: JSON.stringify(cleanData)
+    body: JSON.stringify([cleanData])
   });
 
   if (!response.ok) {

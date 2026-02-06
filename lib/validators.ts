@@ -1,18 +1,15 @@
 import { z } from "zod";
 
-// Transform empty strings to undefined for optional fields
-const optionalString = z.string().optional().transform(val => val === "" ? undefined : val);
-
 export const quoteSchema = z.object({
   type: z.literal("quote"),
   name: z.string().min(2, "Please enter your name"),
   email: z.string().email("Enter a valid email"),
   phone_number: z.string().min(7, "Enter a valid phone number"),
-  genre: optionalString,
-  service_interest: optionalString,
-  budget_range: optionalString,
-  timeline: optionalString,
-  message: optionalString
+  genre: z.string().optional(),
+  service_interest: z.string().optional(),
+  budget_range: z.string().optional(),
+  timeline: z.string().optional(),
+  message: z.string().optional()
 });
 
 export const contactSchema = z.object({
