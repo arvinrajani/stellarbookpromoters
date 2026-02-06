@@ -29,40 +29,43 @@ export async function POST(request: Request) {
       created_at: new Date().toISOString()
     };
 
-    // Try Supabase insert
-    if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
-      try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            apikey: SUPABASE_SERVICE_ROLE_KEY,
-            Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-            Prefer: "return=minimal"
-          },
-          body: JSON.stringify([payload])
-        });
-
-        if (!response.ok) {
-          const errText = await response.text();
-          console.error("Supabase error:", response.status, errText);
-          // Still return success to user - we got their data logged
-        } else {
-          console.log("Lead saved to Supabase successfully");
+    // Check if Supabase is configured
+    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+      return NextResponse.json({
+        ok: false,
+        error: "Supabase not configured on server",
+        debug: {
+          hasUrl: !!SUPABASE_URL,
+          hasKey: !!SUPABASE_SERVICE_ROLE_KEY
         }
-      } catch (dbError) {
-        console.error("Supabase connection error:", dbError);
-        // Still return success - don't block the user
-      }
-    } else {
-      console.warn("Supabase not configured - lead data:", JSON.stringify(payload));
+      }, { status: 500 });
     }
 
-    // Always return success to the user
+    // Insert into Supabase
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+        Prefer: "return=minimal"
+      },
+      body: JSON.stringify([payload])
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      return NextResponse.json({
+        ok: false,
+        error: "Supabase insert failed",
+        details: errText,
+        status: response.status
+      }, { status: 500 });
+    }
+
     return NextResponse.json({ ok: true });
   } catch (error) {
-    console.error("API Error:", error);
-    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
+    return NextResponse.json({ ok: false, error: String(error) }, { status: 500 });
   }
 }
 
