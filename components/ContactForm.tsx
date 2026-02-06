@@ -9,7 +9,6 @@ import { Button } from "@/components/Buttons";
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [sheetSynced, setSheetSynced] = useState<boolean | null>(null);
 
   const {
     register,
@@ -29,7 +28,6 @@ export function ContactForm() {
   const onSubmit = async (values: ContactFormValues) => {
     setIsSubmitting(true);
     setStatus("idle");
-    setSheetSynced(null);
     try {
       const response = await fetch("/api/lead", {
         method: "POST",
@@ -37,18 +35,14 @@ export function ContactForm() {
         body: JSON.stringify(values)
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
         throw new Error("Request failed");
       }
 
       setStatus("success");
-      setSheetSynced(data.sheetSynced);
       reset();
     } catch (error) {
       setStatus("error");
-      setSheetSynced(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -93,21 +87,15 @@ export function ContactForm() {
           {isSubmitting ? "Sending..." : "Send message"}
         </Button>
         {status === "success" && (
-          <div className="text-sm">
-            <p className="text-gold">Success: Message sent successfully.</p>
-            {sheetSynced === true && <p className="text-muted">Saved to database.</p>}
-            {sheetSynced === false && (
-              <p className="text-muted">Note: May not be visible in Google Sheets (check setup).</p>
-            )}
+          <p className="text-sm text-gold">✓ Message sent successfully!</p>
+        )}
+        {status === "error" && (
+          <p className="text-sm text-red-500">Something went wrong. Please try again.</p>
+        )}
           </div>
         )}
         {status === "error" && (
-          <div className="text-sm">
-            <p className="text-text">Error: Something went wrong. Please try again.</p>
-            {sheetSynced === false && (
-              <p className="text-muted">Note: Google Sheets integration may not be configured.</p>
-            )}
-          </div>
+          <p className="text-sm text-red-500">Something went wrong. Please try again.</p>
         )}
       </div>
     </form>
