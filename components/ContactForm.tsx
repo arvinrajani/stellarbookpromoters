@@ -92,11 +92,6 @@ export function ContactForm() {
         {status === "error" && (
           <p className="text-sm text-red-500">Something went wrong. Please try again.</p>
         )}
-          </div>
-        )}
-        {status === "error" && (
-          <p className="text-sm text-red-500">Something went wrong. Please try again.</p>
-        )}
       </div>
     </form>
   );
