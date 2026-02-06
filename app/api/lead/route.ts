@@ -10,6 +10,11 @@ async function insertLead(data: Record<string, unknown>) {
     return { ok: false, error: "Supabase credentials missing" };
   }
 
+  // Remove undefined values to prevent Supabase issues
+  const cleanData = Object.fromEntries(
+    Object.entries(data).filter(([_, v]) => v !== undefined)
+  );
+
   const response = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
     method: "POST",
     headers: {
@@ -18,7 +23,7 @@ async function insertLead(data: Record<string, unknown>) {
       Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
       Prefer: "return=minimal"
     },
-    body: JSON.stringify([data])
+    body: JSON.stringify(cleanData)
   });
 
   if (!response.ok) {
@@ -33,9 +38,12 @@ async function insertLead(data: Record<string, unknown>) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    console.log("Received lead data:", body);
+    
     const parsed = leadSchema.safeParse(body);
 
     if (!parsed.success) {
+      console.error("Validation failed:", parsed.error.flatten());
       return NextResponse.json(
         { ok: false, errors: parsed.error.flatten() },
         { status: 400 }
@@ -43,16 +51,20 @@ export async function POST(request: Request) {
     }
 
     const payload = { ...parsed.data, created_at: new Date().toISOString() };
+    console.log("Inserting into Supabase:", payload);
+    
     const { ok, error } = await insertLead(payload);
 
     if (!ok) {
+      console.error("Insert failed:", error);
       return NextResponse.json({ ok: false, error }, { status: 500 });
     }
 
+    console.log("Lead inserted successfully");
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("API Error:", error);
-    return NextResponse.json({ ok: false }, { status: 500 });
+    return NextResponse.json({ ok: false, error: String(error) }, { status: 500 });
   }
 }
 
