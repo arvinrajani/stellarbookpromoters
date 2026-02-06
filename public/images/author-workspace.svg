@@ -1,0 +1,55 @@
+<svg width="360" height="240" viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="authorBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f3f4f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e5e7eb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="personGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d1d5db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9ca3af;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="360" height="240" fill="url(#authorBg)"/>
+
+  <!-- Desk -->
+  <rect x="0" y="180" width="360" height="60" fill="#8b4513"/>
+  <rect x="0" y="170" width="360" height="20" fill="#654321"/>
+
+  <!-- Computer/Laptop -->
+  <rect x="120" y="140" width="120" height="8" fill="#374151" rx="2"/>
+  <rect x="140" y="100" width="80" height="50" fill="#1f2937" rx="4"/>
+  <rect x="145" y="105" width="70" height="35" fill="#111827"/>
+  <circle cx="180" cy="125" r="8" fill="#3b82f6"/>
+  <text x="180" y="130" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="6">S</text>
+
+  <!-- Books on desk -->
+  <rect x="40" y="160" width="25" height="35" fill="#dc2626" rx="2"/>
+  <rect x="45" y="165" width="15" height="25" fill="#fef2f2" rx="1"/>
+  <text x="52.5" y="180" text-anchor="middle" fill="#dc2626" font-family="Arial, sans-serif" font-size="4" font-weight="bold">BOOK</text>
+
+  <rect x="280" y="155" width="30" height="40" fill="#059669" rx="2"/>
+  <rect x="285" y="160" width="20" height="30" fill="#ecfdf5" rx="1"/>
+  <text x="295" y="178" text-anchor="middle" fill="#059669" font-family="Arial, sans-serif" font-size="4" font-weight="bold">NOVEL</text>
+
+  <!-- Coffee mug -->
+  <ellipse cx="320" cy="175" rx="12" ry="8" fill="#6b7280"/>
+  <rect x="308" y="167" width="24" height="15" fill="none" stroke="#6b7280" stroke-width="2" rx="2"/>
+  <text x="320" y="177" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="5">☕</text>
+
+  <!-- Award/Recognition -->
+  <circle cx="60" cy="70" r="20" fill="#ffd700"/>
+  <circle cx="60" cy="70" r="15" fill="#ffed4e"/>
+  <text x="60" y="75" text-anchor="middle" fill="#b45309" font-family="Arial, sans-serif" font-size="8" font-weight="bold">★</text>
+  <text x="60" y="85" text-anchor="middle" fill="#b45309" font-family="Arial, sans-serif" font-size="4">AWARD</text>
+
+  <!-- Floating elements -->
+  <circle cx="100" cy="40" r="4" fill="#3b82f6" opacity="0.6"/>
+  <circle cx="280" cy="35" r="3" fill="#ef4444" opacity="0.5"/>
+  <circle cx="200" cy="50" r="5" fill="#10b981" opacity="0.4"/>
+
+  <!-- Title -->
+  <text x="180" y="25" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Professional Author Workspace</text>
+  <text x="180" y="40" text-anchor="middle" fill="#6b7280" font-family="Arial, sans-serif" font-size="8">Where creativity meets excellence</text>
+</svg>
