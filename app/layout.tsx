@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
-import Script from "next/script";
 import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -43,12 +42,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-      </head>
-      <body className={`${headingFont.variable} ${bodyFont.variable} bg-bg text-text antialiased`} suppressHydrationWarning>
         {/* Meta Pixel Code */}
-        <Script
-          id="facebook-pixel"
-          strategy="afterInteractive"
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               !function(f,b,e,v,n,t,s)
@@ -64,8 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
-        
-        {/* Meta Pixel noscript */}
         <noscript>
           <img
             height="1"
@@ -75,7 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             alt=""
           />
         </noscript>
-        
+        {/* End Meta Pixel Code */}
+      </head>
+      <body className={`${headingFont.variable} ${bodyFont.variable} bg-bg text-text antialiased`} suppressHydrationWarning>
         <Suspense fallback={null}>
           <FacebookPixelRouteTracker />
         </Suspense>
