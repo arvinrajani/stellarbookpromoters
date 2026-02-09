@@ -2,44 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* Premium Book Brand Color Scheme */
-  --rich-black: #0B0B0B;
-  --graphite-gray: #2E2E2E;
-  --metallic-gold: #C9A24D;
-  --beige: #EFE3CF;
-  --off-white: #FAF9F7;
-  
-  /* Text Colors */
-  --text-primary: #1A1A1A;
-  --text-on-dark: #FFFFFF;
-  --text-muted: #6F6A63;
-  
-  /* Legacy variable mappings for compatibility */
-  --bg: #FAF9F7;
-  --surface: #2E2E2E;
-  --gold: #C9A24D;
-  --goldHover: #0B0B0B;
-  --ink: #0B0B0B;
-  --text: #1A1A1A;
-  --muted: #6F6A63;
-  --borderGold: rgba(201, 162, 77, 0.3);
-  --radius: 16px;
-}
+@layer base {
+  :root {
+    /* Premium Book Brand Color Scheme */
+    --rich-black: #0B0B0B;
+    --graphite-gray: #2E2E2E;
+    --metallic-gold: #C9A24D;
+    --beige: #EFE3CF;
+    --off-white: #FAF9F7;
+    
+    /* Text Colors */
+    --text-primary: #1A1A1A;
+    --text-on-dark: #FFFFFF;
+    --text-muted: #6F6A63;
+    
+    /* Legacy variable mappings for compatibility */
+    --bg: #FAF9F7;
+    --surface: #2E2E2E;
+    --gold: #C9A24D;
+    --goldHover: #0B0B0B;
+    --ink: #0B0B0B;
+    --text: #1A1A1A;
+    --muted: #6F6A63;
+    --borderGold: rgba(201, 162, 77, 0.3);
+    --radius: 16px;
+  }
 
-* {
-  border-color: var(--borderGold);
-}
+  * {
+    border-color: var(--borderGold);
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-body {
-  min-height: 100vh;
-  background: var(--off-white);
-  color: var(--text-primary);
-  font-family: var(--font-body);
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    background: var(--off-white);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+  }
 }
 
 /* 3D Perspective utilities */
@@ -66,6 +72,10 @@ body {
   z-index: 0;
   pointer-events: none;
   opacity: 0.55;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   background:
     radial-gradient(800px 400px at 10% 0%, rgba(201, 162, 77, 0.08), transparent 60%),
     radial-gradient(700px 380px at 90% 10%, rgba(11, 11, 11, 0.12), transparent 55%),
