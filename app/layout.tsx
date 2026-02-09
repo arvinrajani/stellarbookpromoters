@@ -35,16 +35,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${headingFont.variable} ${bodyFont.variable} bg-bg text-text antialiased`}>
         <ScrollProgress />
-        <div className="ambient-layer" aria-hidden="true">
-          <div className="ambient-grain" />
-        </div>
-        <div className="relative z-10">
-          <ModalProvider>
-            <Navbar />
-            <main className="pt-6">{children}</main>
-            <Footer />
-          </ModalProvider>
-        </div>
+        <ModalProvider>
+          <Navbar />
+          <main className="pt-6">{children}</main>
+          <Footer />
+        </ModalProvider>
       </body>
     </html>
   );
