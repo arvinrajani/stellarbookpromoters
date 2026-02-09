@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
 
+const fallbackSiteUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://stellarbookpromoters.vercel.app"
+    : "http://localhost:3000";
+
+const rawSiteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || fallbackSiteUrl;
+
+const normalizedSiteUrl = (rawSiteUrl.startsWith("http")
+  ? rawSiteUrl
+  : `https://${rawSiteUrl}`
+).replace(/\/+$/, "");
+
 export const siteConfig = {
   name: "Stellar Book Promoters",
   description:
     "Luxury book publishing and marketing partner for authors who want impeccable editorial polish, premium production, and strategic launch support.",
-  url: "https://stellarbookpromoters.com",
+  url: normalizedSiteUrl,
   ogImage: "/images/og-stellar.svg"
 };
 
