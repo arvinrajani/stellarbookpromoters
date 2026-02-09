@@ -1,12 +1,10 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
-import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ModalProvider } from "@/components/ModalProvider";
 import { ScrollProgress } from "@/components/ScrollProgress";
-import { FacebookPixelRouteTracker } from "@/components/FacebookPixel";
 import { defaultMetadata } from "@/lib/seo";
 
 const headingFont = Playfair_Display({
@@ -55,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
               fbq('init', '1974490299809444');
+              fbq('track', 'PageView');
             `,
           }}
         />
@@ -70,9 +69,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* End Meta Pixel Code */}
       </head>
       <body className={`${headingFont.variable} ${bodyFont.variable} bg-bg text-text antialiased`} suppressHydrationWarning>
-        <Suspense fallback={null}>
-          <FacebookPixelRouteTracker />
-        </Suspense>
         <ScrollProgress />
         <ModalProvider>
           <Navbar />
