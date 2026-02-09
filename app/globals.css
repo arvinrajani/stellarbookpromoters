@@ -2,60 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    /* Premium Book Brand Color Scheme */
-    --rich-black: #0B0B0B;
-    --graphite-gray: #2E2E2E;
-    --metallic-gold: #C9A24D;
-    --beige: #EFE3CF;
-    --off-white: #FAF9F7;
-    
-    /* Text Colors */
-    --text-primary: #1A1A1A;
-    --text-on-dark: #FFFFFF;
-    --text-muted: #6F6A63;
-    
-    /* Legacy variable mappings for compatibility */
-    --bg: #FAF9F7;
-    --surface: #2E2E2E;
-    --gold: #C9A24D;
-    --goldHover: #0B0B0B;
-    --ink: #0B0B0B;
-    --text: #1A1A1A;
-    --muted: #6F6A63;
-    --borderGold: rgba(201, 162, 77, 0.3);
-    --radius: 16px;
-  }
+:root {
+  /* Premium Book Brand Color Scheme */
+  --rich-black: #0B0B0B;
+  --graphite-gray: #2E2E2E;
+  --metallic-gold: #C9A24D;
+  --beige: #EFE3CF;
+  --off-white: #FAF9F7;
+  
+  /* Text Colors */
+  --text-primary: #1A1A1A;
+  --text-on-dark: #FFFFFF;
+  --text-muted: #6F6A63;
+  
+  /* Legacy variable mappings for compatibility */
+  --bg: #FAF9F7;
+  --surface: #2E2E2E;
+  --gold: #C9A24D;
+  --goldHover: #0B0B0B;
+  --ink: #0B0B0B;
+  --text: #1A1A1A;
+  --muted: #6F6A63;
+  --borderGold: rgba(201, 162, 77, 0.3);
+  --radius: 16px;
+}
 
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
-  * {
-    border-color: var(--borderGold);
-  }
+* {
+  border-color: var(--borderGold);
+}
 
-  html {
-    height: 100%;
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  body {
-    height: 100%;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    background: var(--off-white);
-    color: var(--text-primary);
-    font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-  }
+body {
+  height: 100%;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  background: var(--off-white);
+  color: var(--text-primary);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
 }
 
 /* Utility classes */
