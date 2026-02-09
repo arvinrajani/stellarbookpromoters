@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ModalProvider } from "@/components/ModalProvider";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { MetaPixelPageView } from "@/components/MetaPixelPageView";
 import { defaultMetadata } from "@/lib/seo";
 
 const headingFont = Playfair_Display({
@@ -58,7 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
               fbq('init', '1974490299809444');
-              fbq('track', 'PageView');
             `,
           }}
         />
@@ -72,6 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </noscript>
 
+        <MetaPixelPageView />
         <ScrollProgress />
         <ModalProvider>
           <Navbar />
