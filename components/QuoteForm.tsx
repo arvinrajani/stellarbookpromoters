@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { quoteSchema, type QuoteFormValues } from "@/lib/validators";
 import { services } from "@/data/services";
 import { Button } from "@/components/Buttons";
-import { fbTrackLead } from "@/components/FacebookPixel";
+import { fbqTrack, fbqTrackCustom } from "@/lib/metaPixel";
 
 const genres = [
   "Fiction",
@@ -23,9 +23,10 @@ const budgets = ["$199-$499", "$499-$999", "$999-$1,999", "$2,000+", "Not sure y
 
 const timelines = ["ASAP", "1-2 months", "3-4 months", "5+ months"];
 
-export function QuoteForm({ embedded }: { embedded?: boolean }) {
+export function QuoteForm({ embedded, formName = "quote_form" }: { embedded?: boolean; formName?: string }) {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const startedOnce = useRef(false);
 
   const {
     register,
@@ -47,6 +48,14 @@ export function QuoteForm({ embedded }: { embedded?: boolean }) {
     }
   });
 
+  const trackStarted = () => {
+    if (startedOnce.current) return;
+    startedOnce.current = true;
+    fbqTrackCustom("FormStarted", {
+      form_name: formName
+    });
+  };
+
   const onSubmit = async (values: QuoteFormValues) => {
     setIsSubmitting(true);
     setStatus("idle");
@@ -62,7 +71,9 @@ export function QuoteForm({ embedded }: { embedded?: boolean }) {
       }
 
       setStatus("success");
-      fbTrackLead(); // Track Facebook lead conversion
+      fbqTrack("Lead", {
+        form_name: formName
+      });
       reset();
     } catch (error) {
       setStatus("error");
@@ -77,6 +88,8 @@ export function QuoteForm({ embedded }: { embedded?: boolean }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
+      onFocusCapture={trackStarted}
+      onChangeCapture={trackStarted}
       className={`grid gap-5 ${embedded ? "" : "max-w-2xl"}`}
     >
       <input type="hidden" value="quote" {...register("type")} />

@@ -1,15 +1,16 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, type ContactFormValues } from "@/lib/validators";
 import { Button } from "@/components/Buttons";
-import { fbTrackContact } from "@/components/FacebookPixel";
+import { fbqTrack, fbqTrackCustom } from "@/lib/metaPixel";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const startedOnce = useRef(false);
 
   const {
     register,
@@ -26,6 +27,14 @@ export function ContactForm() {
     }
   });
 
+  const trackStarted = () => {
+    if (startedOnce.current) return;
+    startedOnce.current = true;
+    fbqTrackCustom("FormStarted", {
+      form_name: "contact",
+    });
+  };
+
   const onSubmit = async (values: ContactFormValues) => {
     setIsSubmitting(true);
     setStatus("idle");
@@ -41,7 +50,7 @@ export function ContactForm() {
       }
 
       setStatus("success");
-      fbTrackContact(); // Track Facebook conversion
+      fbqTrack("Lead", { form_name: "contact" });
       reset();
     } catch (error) {
       setStatus("error");
@@ -51,7 +60,12 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onFocusCapture={trackStarted}
+      onChangeCapture={trackStarted}
+      className="grid gap-4"
+    >
       <input type="hidden" value="contact" {...register("type")} />
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">

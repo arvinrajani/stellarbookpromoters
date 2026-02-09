@@ -66,7 +66,7 @@ export function LeadFormModal({ open, onClose }: { open: boolean; onClose: () =>
         
         {/* Form Content */}
         <div className="bg-gradient-to-b from-offWhite to-[#FAF9F7] px-6 py-6">
-          <QuoteForm />
+          <QuoteForm formName="get_started" />
         </div>
       </div>
     </div>

@@ -1,9 +1,10 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState, useEffect } from "react";
+import { createContext, useCallback, useContext, useMemo, useState, useEffect } from "react";
 import { LeadFormModal } from "@/components/LeadFormModal";
 import { ChatModal } from "@/components/ChatModal";
 import { FloatingChatButton } from "@/components/FloatingChatButton";
+import { fbqTrackCustom } from "@/lib/metaPixel";
 
 type ModalContextValue = {
   openQuote: () => void;
@@ -17,28 +18,40 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
 
+  const openQuoteModal = useCallback((location: string) => {
+    setQuoteOpen((previous) => {
+      if (!previous) {
+        fbqTrackCustom("GetStartedOpened", {
+          form_name: "get_started",
+          location
+        });
+      }
+      return true;
+    });
+  }, []);
+
   // Auto-open the Get Started modal on page load (only once per session)
   useEffect(() => {
     const hasSeenModal = sessionStorage.getItem("hasSeenGetStartedModal");
     if (!hasSeenModal) {
       const timer = setTimeout(() => {
-        setQuoteOpen(true);
+        openQuoteModal("auto_popup");
         sessionStorage.setItem("hasSeenGetStartedModal", "true");
       }, 800); // Quick 0.8s delay
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [openQuoteModal]);
 
   const value = useMemo(
     () => ({
-      openQuote: () => setQuoteOpen(true),
+      openQuote: () => openQuoteModal("site_cta"),
       openChat: () => setChatOpen(true),
       closeAll: () => {
         setQuoteOpen(false);
         setChatOpen(false);
       }
     }),
-    []
+    [openQuoteModal]
   );
 
   return (
