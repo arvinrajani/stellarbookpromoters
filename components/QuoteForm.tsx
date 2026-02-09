@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { quoteSchema, type QuoteFormValues } from "@/lib/validators";
 import { services } from "@/data/services";
 import { Button } from "@/components/Buttons";
+import { fbTrackLead } from "@/components/FacebookPixel";
 
 const genres = [
   "Fiction",
@@ -61,6 +62,7 @@ export function QuoteForm({ embedded }: { embedded?: boolean }) {
       }
 
       setStatus("success");
+      fbTrackLead(); // Track Facebook lead conversion
       reset();
     } catch (error) {
       setStatus("error");

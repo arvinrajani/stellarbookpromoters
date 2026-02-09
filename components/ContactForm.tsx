@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, type ContactFormValues } from "@/lib/validators";
 import { Button } from "@/components/Buttons";
+import { fbTrackContact } from "@/components/FacebookPixel";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -40,6 +41,7 @@ export function ContactForm() {
       }
 
       setStatus("success");
+      fbTrackContact(); // Track Facebook conversion
       reset();
     } catch (error) {
       setStatus("error");
