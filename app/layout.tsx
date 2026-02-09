@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ModalProvider } from "@/components/ModalProvider";
@@ -75,7 +76,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </noscript>
         
-        <FacebookPixelRouteTracker />
+        <Suspense fallback={null}>
+          <FacebookPixelRouteTracker />
+        </Suspense>
         <ScrollProgress />
         <ModalProvider>
           <Navbar />
