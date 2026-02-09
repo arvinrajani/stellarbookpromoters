@@ -27,6 +27,7 @@ export function FloatingBook() {
       className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
     >
       {/* Glow effect behind book */}
       <motion.div
@@ -60,7 +61,7 @@ export function FloatingBook() {
         />
       ))}
 
-      {/* Book Container - uses simple 2D transforms for iOS compatibility */}
+      {/* Book Container */}
       <motion.div
         animate={{
           y: [0, -15, 0],
@@ -70,10 +71,13 @@ export function FloatingBook() {
         }}
         whileHover={{ scale: 1.05 }}
         className="relative w-48 h-64 md:w-64 md:h-80 cursor-pointer"
+        style={{
+          perspective: '1200px'
+        }}
       >
         {/* Book spine */}
         <div
-          className="absolute left-0 top-0 w-4 md:w-5 h-full bg-gradient-to-r from-[#8B6914] via-[#C9A24D] to-[#8B6914] rounded-l-md shadow-2xl"
+          className="absolute left-0 top-0 w-4 md:w-5 h-full bg-gradient-to-r from-[#8B6914] via-[#C9A24D] to-[#8B6914] rounded-l-md shadow-2xl z-10"
         />
 
         {/* Back cover */}
@@ -88,19 +92,22 @@ export function FloatingBook() {
             className="absolute top-1 left-5 md:left-6 right-1 bottom-1 bg-[#FAF9F7] rounded-r-sm"
             style={{ 
               right: `${4 + i * 2}px`,
-              boxShadow: "inset 2px 0 4px rgba(0,0,0,0.1)"
+              boxShadow: "inset 2px 0 4px rgba(0,0,0,0.1)",
+              zIndex: 5 - i
             }}
           />
         ))}
 
-        {/* Page content */}
+        {/* Page content - shows when hovering */}
         <motion.div
           className="absolute top-0 left-4 md:left-5 right-0 bottom-0 bg-[#FAF9F7] rounded-r-md p-4 md:p-6 flex flex-col items-center justify-center overflow-hidden"
+          initial={{ opacity: 0 }}
           animate={{
             opacity: isHovered ? 1 : 0,
             x: isHovered ? 0 : 10,
           }}
           transition={{ duration: 0.4 }}
+          style={{ zIndex: 8 }}
         >
           <motion.div
             key={currentPage}
@@ -126,16 +133,27 @@ export function FloatingBook() {
           </div>
         </motion.div>
 
-        {/* Front cover */}
+        {/* Front cover - opens on hover */}
         <motion.div
-          className="absolute top-0 left-4 md:left-5 right-0 bottom-0 bg-gradient-to-br from-[#C9A24D] via-[#E8D5A3] to-[#C9A24D] rounded-r-md shadow-[0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden"
+          className="absolute top-0 left-4 md:left-5 right-0 bottom-0 bg-gradient-to-br from-[#C9A24D] via-[#E8D5A3] to-[#C9A24D] rounded-r-md shadow-[0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden origin-left"
           animate={{
-            opacity: isHovered ? 0 : 1,
+            rotateY: isHovered ? -140 : 0,
           }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
+          style={{ 
+            transformStyle: 'preserve-3d',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            zIndex: 9
+          }}
         >
           {/* Cover design */}
-          <div className="absolute top-0 left-0 right-0 bottom-0 p-4 md:p-6 flex flex-col items-center justify-center text-[#0B0B0B]">
+          <div className="absolute top-0 left-0 right-0 bottom-0 p-4 md:p-6 flex flex-col items-center justify-center text-[#0B0B0B]"
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden'
+            }}
+          >
             {/* Decorative top border */}
             <div className="absolute top-3 left-3 right-3 h-px bg-gradient-to-r from-transparent via-[#0B0B0B]/30 to-transparent" />
             
@@ -189,6 +207,10 @@ export function FloatingBook() {
               repeatDelay: 4,
               ease: "easeInOut",
             }}
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden'
+            }}
           />
         </motion.div>
       </motion.div>
@@ -201,7 +223,7 @@ export function FloatingBook() {
         className="absolute bottom-4 md:bottom-8 text-center"
       >
         <p className="text-sm md:text-base font-medium text-[#C9A24D]">
-          Tap to peek inside
+          Hover to open the book
         </p>
         <p className="text-xs text-[#6F6A63] mt-1">
           Interactive Book Preview
