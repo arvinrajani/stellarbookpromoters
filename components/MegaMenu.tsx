@@ -22,7 +22,7 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
   if (!open) return null;
 
   return (
-    <div className="absolute left-0 right-0 top-full z-50 border-t border-borderGold/40 bg-surface/95 shadow-soft backdrop-blur">
+    <div className="absolute left-0 right-0 top-full z-50 border-t border-borderGold/40 bg-surface shadow-soft">
       <div className="container grid gap-8 py-8 md:grid-cols-2 xl:grid-cols-3">
         {megaMenu.map((category, columnIndex) => (
           <div key={category.title} className="space-y-4">

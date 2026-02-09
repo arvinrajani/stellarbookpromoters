@@ -37,8 +37,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${headingFont.variable} ${bodyFont.variable} bg-bg text-text antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta charSet="utf-8" />
+      </head>
+      <body className={`${headingFont.variable} ${bodyFont.variable} bg-bg text-text antialiased`} suppressHydrationWarning>
         <ScrollProgress />
         <ModalProvider>
           <Navbar />

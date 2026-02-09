@@ -21,7 +21,7 @@ export function LeadFormModal({ open, onClose }: { open: boolean; onClose: () =>
 
   return (
     <div 
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/80 px-4 py-6 backdrop-blur-md animate-in fade-in duration-300"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/90 px-4 py-6 animate-in fade-in duration-300"
       onClick={onClose}
     >
       <div
@@ -41,7 +41,7 @@ export function LeadFormModal({ open, onClose }: { open: boolean; onClose: () =>
           <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-transparent via-[#C9A24D] to-transparent animate-shimmer" />
           
           {/* Sparkle icon */}
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#C9A24D]/20 px-3 py-1.5 backdrop-blur-sm border border-[#C9A24D]/40">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#C9A24D]/25 px-3 py-1.5 border border-[#C9A24D]/40">
             <Sparkles className="h-3.5 w-3.5 text-[#E8D5A3]" />
             <p className="text-xs font-semibold uppercase tracking-wider text-[#E8D5A3]">Get Started</p>
           </div>

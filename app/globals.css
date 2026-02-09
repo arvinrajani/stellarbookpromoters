@@ -49,8 +49,11 @@ body {
   height: 100%;
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  background: #FAF9F7;
   background: var(--off-white);
+  color: #1A1A1A;
   color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-overflow-scrolling: touch;
   overflow-x: hidden;
@@ -170,17 +173,9 @@ textarea {
   }
 
   .nav-glass {
-    background: rgba(16, 16, 16, 0.95);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    background: rgb(16, 16, 16);
     border-bottom: 1px solid rgba(201, 162, 77, 0.22);
     box-shadow: 0 4px 12px rgba(11, 11, 11, 0.25);
-  }
-  
-  @supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
-    .nav-glass {
-      background: rgba(16, 16, 16, 0.85);
-    }
   }
 
   .ring-emoji {
