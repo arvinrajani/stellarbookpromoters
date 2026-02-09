@@ -16,6 +16,11 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="sticky top-0 z-50 border-b border-metallicGold/15 nav-glass relative"
+      style={{
+        WebkitBackfaceVisibility: 'hidden',
+        backfaceVisibility: 'hidden',
+        willChange: 'transform'
+      }}
     >
       <div className="container flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-4">
         <Link href="/#top" className="flex items-center gap-4 rounded-full transition-opacity hover:opacity-90">

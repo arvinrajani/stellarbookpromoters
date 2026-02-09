@@ -14,50 +14,9 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden pt-28 md:pt-32 pb-16">
-      <div className="absolute inset-0 hero-veil" />
-      <div className="absolute inset-0 bg-gold-radial opacity-70" />
-      <div className="absolute inset-0 ambient-grid" />
-      <div className="absolute -bottom-24 left-0 h-48 w-full bg-gradient-to-t from-[#EFE3CF]/50 to-transparent" />
-
-      {/* Animated floating elements */}
-      <motion.div
-        animate={{
-          y: [0, -20, 0],
-          rotate: [0, 5, 0]
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute left-10 top-20 h-16 w-16 rounded-full bg-gold/10 blur-xl pointer-events-none"
-      />
-      <motion.div
-        animate={{
-          y: [0, 15, 0],
-          x: [0, -10, 0]
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
-        className="absolute right-20 top-32 h-12 w-12 rounded-full bg-gold/15 blur-lg pointer-events-none"
-      />
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3]
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
-        className="absolute bottom-40 left-1/4 h-20 w-20 rounded-full bg-surface/50 blur-xl pointer-events-none"
-      />
+      <div className="absolute top-0 left-0 right-0 bottom-0 hero-veil pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 bottom-0 bg-gold-radial opacity-70 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 bottom-0 ambient-grid pointer-events-none" />
 
       <div className="container relative grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <motion.div
